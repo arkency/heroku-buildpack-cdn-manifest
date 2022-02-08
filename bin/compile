@@ -22,5 +22,9 @@ rm $tmp_dir/aws.zip
 chmod +x $tmp_dir/aws/dist/aws
 mkdir -p $build_dir/public/assets
 AWS_ACCESS_KEY_ID=$(get_env_variable ${env_dir} "DIGITAL_OCEAN_SPACES_KEY") AWS_SECRET_ACCESS_KEY=$(get_env_variable ${env_dir} "DIGITAL_OCEAN_SPACES_SECRET") $tmp_dir/aws/dist/aws s3 cp --endpoint=$(get_env_variable ${env_dir} "DIGITAL_OCEAN_SPACES_ENDPOINT") \
+  s3://$(get_env_variable ${env_dir} "DIGITAL_OCEAN_SPACES_BUCKET")/assets/manifest-$SOURCE_VERSION.json \
+  $build_dir/public/assets/.sprockets-manifest-4ad1cd2a42740dfb475f53c75d6f3b0e.json \
+  --quiet || \
+AWS_ACCESS_KEY_ID=$(get_env_variable ${env_dir} "DIGITAL_OCEAN_SPACES_KEY") AWS_SECRET_ACCESS_KEY=$(get_env_variable ${env_dir} "DIGITAL_OCEAN_SPACES_SECRET") $tmp_dir/aws/dist/aws s3 cp --endpoint=$(get_env_variable ${env_dir} "DIGITAL_OCEAN_SPACES_ENDPOINT") \
   s3://$(get_env_variable ${env_dir} "DIGITAL_OCEAN_SPACES_BUCKET")/assets/manifest-latest.json \
   $build_dir/public/assets/.sprockets-manifest-4ad1cd2a42740dfb475f53c75d6f3b0e.json
