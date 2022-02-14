@@ -15,6 +15,7 @@ require_env_variable $env_dir "AWS_ACCESS_KEY_ID"
 require_env_variable $env_dir "AWS_SECRET_ACCESS_KEY"
 require_env_variable $env_dir "AWS_REGION"
 require_env_variable $env_dir "AWS_BUCKET"
+require_env_variable $env_dit "ASSET_MANIFEST_PATH"
 
 curl -s "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o $tmp_dir/aws.zip
 unzip -qq -d $tmp_dir $tmp_dir/aws.zip
@@ -25,8 +26,8 @@ mkdir -p $build_dir/public/assets
 download_file \
   $tmp_dir/aws/dist/aws \
   assets/manifest-$SOURCE_VERSION.json \
-  $build_dir/public/assets/.sprockets-manifest-4ad1cd2a42740dfb475f53c75d6f3b0e.json || \
+  $build_dir/$ASSET_MANIFEST_PATH || \
   download_file \
   $tmp_dir/aws/dist/aws \
   assets/manifest-latest.json \
-  $build_dir/public/assets/.sprockets-manifest-4ad1cd2a42740dfb475f53c75d6f3b0e.json
+  $build_dir/$ASSET_MANIFEST_PATH
