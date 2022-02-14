@@ -6,7 +6,6 @@ env_dir=$3
 bin_dir=$(cd "$(dirname $0)"; pwd)
 tmp_dir=$(mktemp -d)
 
-
 for import in "$(dirname ${bin_dir})/lib/"*; do
   source "$import"
 done
@@ -23,11 +22,7 @@ rm $tmp_dir/aws.zip
 chmod +x $tmp_dir/aws/dist/aws
 mkdir -p $build_dir/public/assets
 
-download_file \
-  $tmp_dir/aws/dist/aws \
-  assets/manifest-$SOURCE_VERSION.json \
-  $build_dir/$(get_env_variable ${env_dir} "ASSET_MANIFEST_PATH") || \
-  download_file \
-  $tmp_dir/aws/dist/aws \
-  assets/manifest-latest.json \
-  $build_dir/$(get_env_variable ${env_dir} "ASSET_MANIFEST_PATH")
+local aws_bin=$tmp_dir/aws/dist/aws
+
+download_file $aws_bin assets/manifest-$SOURCE_VERSION.json || \
+  download_file $aws_bin assets/manifest-latest.json
