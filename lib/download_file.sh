@@ -10,8 +10,7 @@ download_file () {
     AWS_REGION=$(get_env_variable ${env_dir} "AWS_REGION") \
     $aws_binary_path s3 cp s3://$(get_env_variable ${env_dir} "AWS_BUCKET")/$remote_path $local_path --quiet
 
-  status = $?
-  if [[ $status -eq 0 ]]; then 
+  if [[ $? -eq 0 ]]; then
     echo "Downloaded remote $remote_path to $local_path"
   fi
 }
