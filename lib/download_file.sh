@@ -13,7 +13,7 @@ download_file () {
   local status=$?
 
   if [[ status -eq 0 ]]; then
-    echo "Downloaded remote $remote_path to $local_path"
+    echo "Downloaded remote $remote_path to $local_path" | indent
   fi
 
   return $status
