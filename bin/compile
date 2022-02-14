@@ -26,8 +26,8 @@ mkdir -p $build_dir/public/assets
 download_file \
   $tmp_dir/aws/dist/aws \
   assets/manifest-$SOURCE_VERSION.json \
-  $build_dir/$ASSET_MANIFEST_PATH || \
+  $build_dir/$(get_env_variable ${env_dir} "ASSET_MANIFEST_PATH") || \
   download_file \
   $tmp_dir/aws/dist/aws \
   assets/manifest-latest.json \
-  $build_dir/$ASSET_MANIFEST_PATH
+  $build_dir/$(get_env_variable ${env_dir} "ASSET_MANIFEST_PATH")
