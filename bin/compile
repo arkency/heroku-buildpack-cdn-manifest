@@ -11,20 +11,20 @@ for import in "$(dirname ${bin_dir})/lib/"*; do
   source "$import"
 done
 
-require_env_variable $env_dir "DIGITAL_OCEAN_SPACES_KEY"
-require_env_variable $env_dir "DIGITAL_OCEAN_SPACES_SECRET"
-require_env_variable $env_dir "DIGITAL_OCEAN_SPACES_ENDPOINT"
-require_env_variable $env_dir "DIGITAL_OCEAN_SPACES_BUCKET"
+require_env_variable $env_dir "AWS_ACCESS_KEY_ID"
+require_env_variable $env_dir "AWS_SECRET_ACCESS_KEY"
+require_env_variable $env_dir "AWS_REGION"
+require_env_variable $env_dir "AWS_BUCKET"
 
 curl -s "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o $tmp_dir/aws.zip
 unzip -qq -d $tmp_dir $tmp_dir/aws.zip
 rm $tmp_dir/aws.zip
 chmod +x $tmp_dir/aws/dist/aws
 mkdir -p $build_dir/public/assets
-AWS_ACCESS_KEY_ID=$(get_env_variable ${env_dir} "DIGITAL_OCEAN_SPACES_KEY") AWS_SECRET_ACCESS_KEY=$(get_env_variable ${env_dir} "DIGITAL_OCEAN_SPACES_SECRET") $tmp_dir/aws/dist/aws s3 cp --endpoint=$(get_env_variable ${env_dir} "DIGITAL_OCEAN_SPACES_ENDPOINT") \
-  s3://$(get_env_variable ${env_dir} "DIGITAL_OCEAN_SPACES_BUCKET")/assets/manifest-$SOURCE_VERSION.json \
+AWS_ACCESS_KEY_ID=$(get_env_variable ${env_dir} "AWS_ACCESS_KEY_ID") AWS_SECRET_ACCESS_KEY=$(get_env_variable ${env_dir} "AWS_SECRET_ACCESS_KEY") AWS_REGION=$(get_env_variable ${env_dir} "AWS_REGION") $tmp_dir/aws/dist/aws s3 cp \
+  s3://$(get_env_variable ${env_dir} "AWS_BUCKET")/assets/manifest-$SOURCE_VERSION.json \
   $build_dir/public/assets/.sprockets-manifest-4ad1cd2a42740dfb475f53c75d6f3b0e.json \
   --quiet || \
-AWS_ACCESS_KEY_ID=$(get_env_variable ${env_dir} "DIGITAL_OCEAN_SPACES_KEY") AWS_SECRET_ACCESS_KEY=$(get_env_variable ${env_dir} "DIGITAL_OCEAN_SPACES_SECRET") $tmp_dir/aws/dist/aws s3 cp --endpoint=$(get_env_variable ${env_dir} "DIGITAL_OCEAN_SPACES_ENDPOINT") \
-  s3://$(get_env_variable ${env_dir} "DIGITAL_OCEAN_SPACES_BUCKET")/assets/manifest-latest.json \
+AWS_ACCESS_KEY_ID=$(get_env_variable ${env_dir} "AWS_ACCESS_KEY_ID") AWS_SECRET_ACCESS_KEY=$(get_env_variable ${env_dir} "AWS_SECRET_ACCESS_KEY") AWS_REGION=$(get_env_variable ${env_dir} "AWS_REGION") $tmp_dir/aws/dist/aws s3 cp  \
+  s3://$(get_env_variable ${env_dir} "AWS_BUCKET")/assets/manifest-latest.json \
   $build_dir/public/assets/.sprockets-manifest-4ad1cd2a42740dfb475f53c75d6f3b0e.json
