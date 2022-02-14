@@ -15,7 +15,7 @@ require_env_variable $env_dir "AWS_ACCESS_KEY_ID"
 require_env_variable $env_dir "AWS_SECRET_ACCESS_KEY"
 require_env_variable $env_dir "AWS_REGION"
 require_env_variable $env_dir "AWS_BUCKET"
-require_env_variable $env_dit "ASSET_MANIFEST_PATH"
+require_env_variable $env_dir "ASSET_MANIFEST_PATH"
 
 curl -s "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o $tmp_dir/aws.zip
 unzip -qq -d $tmp_dir $tmp_dir/aws.zip
